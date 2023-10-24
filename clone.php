@@ -1,5 +1,5 @@
 <?php
-function getLinks($url) {
+function getLinks($url, $dir) {
 
     $html = file_get_contents($url);
     $dom = new DOMDocument;
@@ -12,7 +12,7 @@ function getLinks($url) {
             $remote = parse_url($node->getAttribute("href"));
             $fullpath = explode("/", $remote["path"]);
             $filename = urldecode(array_pop($fullpath));
-            $path = "download/Os/DSM/";
+            $path = "download/Os/DSM/$dir/";
 
             @mkdir($path, 0777, true);
             $dest = "$path$filename";
@@ -60,4 +60,4 @@ function getLinks($url) {
         }
     }
 }
-getLinks("https://archive.synology.com/download/Os/DSM");
+getLinks("https://archive.synology.com/download/Os/DSM", "");
